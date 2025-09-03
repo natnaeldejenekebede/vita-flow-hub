@@ -130,8 +130,8 @@ export const Projects = () => {
           </div>
         </motion.div>
 
-        {/* Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* Projects Masonry Grid */}
+        <div className="masonry-grid">
           {projects.map((project, index) => (
             <motion.div
               key={project.id}
@@ -141,7 +141,7 @@ export const Projects = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
-              <Card className="portfolio-card project-card-3d h-full">
+              <Card className="portfolio-card tilt-card h-full">
                 <CardHeader className="pb-4">
                   <div className="flex items-start justify-between mb-4">
                     <div className="text-4xl mb-2">{project.image}</div>
@@ -155,7 +155,7 @@ export const Projects = () => {
                     </div>
                   </div>
                   
-                  <CardTitle className="text-xl group-hover:text-primary transition-colors">
+                  <CardTitle className="text-xl group-hover:text-primary transition-colors duration-300">
                     {project.title}
                   </CardTitle>
                   <CardDescription className="text-sm text-muted-foreground">
@@ -168,6 +168,17 @@ export const Projects = () => {
                     {project.description}
                   </p>
                   
+                  {/* Quick Preview Overlay */}
+                  <motion.div 
+                    className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6"
+                    initial={false}
+                  >
+                    <div className="w-full space-y-2">
+                      <p className="text-xs text-primary font-medium">Quick Preview</p>
+                      <p className="text-sm text-foreground">{project.longDescription}</p>
+                    </div>
+                  </motion.div>
+                  
                   <div className="space-y-3">
                     <div>
                       <h4 className="text-sm font-medium text-foreground mb-2">Technologies:</h4>
@@ -176,7 +187,7 @@ export const Projects = () => {
                           <Badge 
                             key={tech} 
                             variant="secondary" 
-                            className="text-xs bg-secondary/10 text-secondary border-secondary/20"
+                            className="text-xs bg-secondary/10 text-secondary border-secondary/20 hover:bg-secondary/20 transition-colors"
                           >
                             {tech}
                           </Badge>
@@ -203,7 +214,7 @@ export const Projects = () => {
                   <div className="flex space-x-2 pt-2">
                     <Button 
                       size="sm" 
-                      className="flex-1 bg-primary/10 hover:bg-primary/20 text-primary border border-primary/30"
+                      className="flex-1 bg-primary/10 hover:bg-primary/20 text-primary border border-primary/30 hover:scale-105 transition-transform"
                       asChild
                     >
                       <a href={project.github} target="_blank" rel="noopener noreferrer">
@@ -213,7 +224,7 @@ export const Projects = () => {
                     </Button>
                     <Button 
                       size="sm" 
-                      className="flex-1 tech-button text-xs"
+                      className="flex-1 tech-button text-xs hover:scale-105 transition-transform"
                       asChild
                     >
                       <a href={project.demo} target="_blank" rel="noopener noreferrer">

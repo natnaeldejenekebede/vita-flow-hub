@@ -163,6 +163,105 @@
   .shadow-glow-secondary {
     box-shadow: var(--shadow-glow-secondary);
   }
+
+  /* Animated Logo/Initials */
+  .animated-logo {
+    @apply text-6xl font-bold gradient-hero bg-clip-text text-transparent;
+    animation: logoGlow 3s ease-in-out infinite alternate;
+  }
+
+  /* Parallax Hero Background */
+  .parallax-hero {
+    background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--secondary)) 100%);
+    background-attachment: fixed;
+    background-size: 120% 120%;
+    animation: parallaxShift 20s ease-in-out infinite;
+  }
+
+  /* Typing Effect */
+  .typing-effect {
+    border-right: 2px solid hsl(var(--primary));
+    animation: blinkCursor 1s infinite;
+  }
+
+  /* Sticky CTA Button */
+  .sticky-cta {
+    @apply fixed bottom-8 right-8 z-50 tech-button;
+    box-shadow: var(--shadow-glow), 0 8px 32px hsl(var(--primary) / 0.3);
+    animation: stickyPulse 2s infinite;
+  }
+
+  /* Masonry Grid Layout */
+  .masonry-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    grid-auto-rows: masonry;
+    gap: 2rem;
+  }
+
+  /* 3D Tilt Cards */
+  .tilt-card {
+    transform-style: preserve-3d;
+    transition: transform 0.3s ease;
+  }
+
+  .tilt-card:hover {
+    transform: perspective(1000px) rotateY(10deg) rotateX(10deg) translateZ(20px);
+  }
+
+  /* Floating Labels */
+  .floating-label {
+    @apply relative;
+  }
+
+  .floating-label input:focus + label,
+  .floating-label input:not(:placeholder-shown) + label,
+  .floating-label textarea:focus + label,
+  .floating-label textarea:not(:placeholder-shown) + label {
+    @apply -translate-y-6 scale-75 text-primary;
+  }
+
+  .floating-label label {
+    @apply absolute left-3 top-3 text-muted-foreground transition-all duration-200 pointer-events-none;
+  }
+
+  /* Scrolling Marquee */
+  .marquee {
+    display: flex;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .marquee-content {
+    display: flex;
+    animation: marquee 30s linear infinite;
+    gap: 2rem;
+  }
+
+  .marquee-item {
+    @apply flex items-center space-x-2 px-4 py-2 bg-primary/10 rounded-full border border-primary/20;
+  }
+
+  /* Interactive Timeline */
+  .timeline-item {
+    @apply relative pl-8 pb-8 border-l-2 border-primary/30;
+  }
+
+  .timeline-item::before {
+    @apply absolute -left-2 top-0 w-4 h-4 bg-primary rounded-full;
+    content: '';
+    box-shadow: 0 0 0 4px hsl(var(--background)), 0 0 0 6px hsl(var(--primary) / 0.3);
+  }
+
+  .timeline-item:hover::before {
+    box-shadow: 0 0 0 4px hsl(var(--background)), 0 0 0 8px hsl(var(--primary) / 0.5);
+  }
+
+  /* Radar Chart Container */
+  .radar-chart {
+    @apply relative w-full h-80 bg-gradient-to-br from-primary/5 to-secondary/5 rounded-xl border border-primary/20;
+  }
+}
   
   .tech-button {
     @apply inline-flex items-center justify-center rounded-[var(--radius)] px-8 py-3 font-semibold text-base;

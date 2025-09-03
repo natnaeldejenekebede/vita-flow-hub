@@ -7,7 +7,10 @@ import {
   ArrowUp, 
   Heart,
   Code,
-  Coffee
+  Coffee,
+  Database,
+  Server,
+  Cpu
 } from "lucide-react";
 
 export const Footer = () => {
@@ -16,6 +19,15 @@ export const Footer = () => {
   };
 
   const currentYear = new Date().getFullYear();
+
+  const techIcons = [
+    { icon: Code, name: "React", color: "text-blue-400" },
+    { icon: Code, name: "JavaScript", color: "text-yellow-400" },
+    { icon: Database, name: "Database", color: "text-green-400" },
+    { icon: Server, name: "Node.js", color: "text-green-500" },
+    { icon: Cpu, name: "AI/ML", color: "text-purple-400" },
+    { icon: Github, name: "Git", color: "text-orange-400" },
+  ];
 
   const footerLinks = {
     projects: [
@@ -128,6 +140,29 @@ export const Footer = () => {
                 <Coffee className="h-4 w-4 mr-2" />
                 Let's Collaborate
               </Button>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Tech Icons Marquee */}
+        <motion.div
+          className="py-8 border-t border-border/50"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
+          <div className="marquee">
+            <div className="marquee-content">
+              {[...techIcons, ...techIcons].map((tech, index) => {
+                const IconComponent = tech.icon;
+                return (
+                  <div key={index} className="marquee-item">
+                    <IconComponent className={`h-5 w-5 ${tech.color}`} />
+                    <span className="text-sm font-medium text-foreground">{tech.name}</span>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </motion.div>

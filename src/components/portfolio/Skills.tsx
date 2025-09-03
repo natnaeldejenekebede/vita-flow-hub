@@ -1,12 +1,12 @@
 import { motion } from "framer-motion";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { RadarChart } from "@/components/ui/radar-chart";
 import { 
   Code, 
   Database, 
   Smartphone, 
   Cloud, 
-  Palette, 
   Users, 
   Lightbulb, 
   Target,
@@ -87,16 +87,6 @@ export const Skills = () => {
     { name: "Agile Project Management", issuer: "Google", year: "2024" }
   ];
 
-  const getColorClasses = (color: string) => {
-    const colorMap = {
-      primary: "text-primary border-primary/30 bg-primary/10",
-      secondary: "text-secondary border-secondary/30 bg-secondary/10",
-      accent: "text-accent border-accent/30 bg-accent/10",
-      success: "text-success border-success/30 bg-success/10"
-    };
-    return colorMap[color as keyof typeof colorMap] || colorMap.primary;
-  };
-
   return (
     <section id="skills" className="py-20 bg-muted/30 relative overflow-hidden">
       {/* Background Effects */}
@@ -114,8 +104,7 @@ export const Skills = () => {
             Skills & <span className="gradient-hero bg-clip-text text-transparent">Expertise</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            A comprehensive toolkit built through hands-on experience in diverse projects 
-            and continuous learning in emerging technologies.
+            A comprehensive toolkit built through hands-on experience and continuous learning.
           </p>
         </motion.div>
 
@@ -135,7 +124,7 @@ export const Skills = () => {
                 <Card className="portfolio-card h-full">
                   <CardHeader>
                     <div className="flex items-center space-x-3">
-                      <div className={`p-3 rounded-lg shadow-glow ${getColorClasses(category.color)} border`}>
+                      <div className="p-3 rounded-lg shadow-glow bg-primary/10 text-primary border border-primary/30">
                         <IconComponent className="h-6 w-6" />
                       </div>
                       <div>
@@ -165,10 +154,7 @@ export const Skills = () => {
                             {skill.name}
                           </span>
                           <div className="flex items-center space-x-2">
-                            <Badge 
-                              variant="outline" 
-                              className="text-xs bg-muted text-muted-foreground"
-                            >
+                            <Badge variant="outline" className="text-xs">
                               {skill.experience}
                             </Badge>
                             <span className="text-xs text-muted-foreground">
@@ -179,12 +165,7 @@ export const Skills = () => {
                         
                         <div className="relative h-2 bg-muted rounded-full overflow-hidden">
                           <motion.div
-                            className={`absolute top-0 left-0 h-full rounded-full ${
-                              category.color === 'primary' ? 'gradient-primary' :
-                              category.color === 'secondary' ? 'gradient-secondary' :
-                              category.color === 'accent' ? 'bg-accent' :
-                              'bg-success'
-                            }`}
+                            className="absolute top-0 left-0 h-full rounded-full gradient-primary"
                             initial={{ width: 0 }}
                             whileInView={{ width: `${skill.level}%` }}
                             viewport={{ once: true }}
@@ -204,6 +185,49 @@ export const Skills = () => {
           })}
         </div>
 
+        {/* Skills Radar Chart */}
+        <motion.div
+          className="mb-16"
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.8 }}
+        >
+          <Card className="portfolio-card">
+            <CardHeader>
+              <div className="flex items-center space-x-3">
+                <div className="p-3 rounded-lg gradient-hero shadow-glow">
+                  <Brain className="h-6 w-6 text-white" />
+                </div>
+                <div>
+                  <CardTitle className="text-2xl">Technical Proficiency Overview</CardTitle>
+                  <CardDescription>
+                    Interactive skill assessment across key technology areas
+                  </CardDescription>
+                </div>
+              </div>
+            </CardHeader>
+            
+            <CardContent>
+              <RadarChart
+                data={{
+                  labels: ['Frontend', 'Backend', 'Mobile', 'DevOps', 'Database', 'AI/ML'],
+                  datasets: [
+                    {
+                      label: 'Skill Level',
+                      data: [92, 87, 83, 77, 82, 75],
+                      backgroundColor: 'hsla(187, 100%, 50%, 0.2)',
+                      borderColor: 'hsl(187, 100%, 50%)',
+                      borderWidth: 2,
+                    },
+                  ],
+                }}
+                className="h-80"
+              />
+            </CardContent>
+          </Card>
+        </motion.div>
+
         {/* Soft Skills */}
         <motion.div
           className="mb-16"
@@ -216,9 +240,6 @@ export const Skills = () => {
             <h3 className="text-3xl font-bold text-foreground mb-4">
               Soft <span className="gradient-hero bg-clip-text text-transparent">Skills</span>
             </h3>
-            <p className="text-lg text-muted-foreground">
-              Essential interpersonal and professional capabilities
-            </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

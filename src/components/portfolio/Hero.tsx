@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { TypingEffect } from "@/components/ui/typing-effect";
+import { StickyCTA } from "@/components/ui/sticky-cta";
 import { 
   Github, 
   Linkedin, 
@@ -18,10 +20,22 @@ export const Hero = () => {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Animated Background */}
-      <div className="absolute inset-0 gradient-mesh" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,hsl(var(--primary)/0.1),transparent_70%)]" />
+    <>
+      <StickyCTA />
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden parallax-hero">
+        {/* Animated Logo/Initials */}
+        <motion.div 
+          className="absolute top-8 left-8 z-10"
+          initial={{ opacity: 0, scale: 0.5 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+        >
+          <div className="animated-logo text-4xl">ND</div>
+        </motion.div>
+
+        {/* Animated Background */}
+        <div className="absolute inset-0 gradient-mesh opacity-30" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,hsl(var(--primary)/0.1),transparent_70%)]" />
       
       {/* Floating Particles */}
       <div className="absolute inset-0">
@@ -88,9 +102,13 @@ export const Hero = () => {
                 <p className="text-2xl lg:text-3xl font-semibold text-primary">
                   Software Engineer
                 </p>
-                <p className="text-lg text-muted-foreground">
-                  Empowering Tech Innovation in Ethiopia
-                </p>
+                <div className="text-lg text-muted-foreground">
+                  <TypingEffect 
+                    text="Innovating Tech Solutions in Ethiopia" 
+                    speed={80}
+                    className="text-xl font-medium text-foreground"
+                  />
+                </div>
               </motion.div>
 
               <motion.p 
@@ -234,5 +252,6 @@ export const Hero = () => {
         </motion.div>
       </div>
     </section>
+    </>
   );
 };

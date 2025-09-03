@@ -224,23 +224,25 @@ export const About = () => {
         >
           <div className="text-center mb-12">
             <h3 className="text-3xl font-bold text-foreground mb-4">
-              Professional <span className="gradient-hero bg-clip-text text-transparent">Experience</span>
+              Professional <span className="gradient-hero bg-clip-text text-transparent">Timeline</span>
             </h3>
             <p className="text-lg text-muted-foreground">
-              Building expertise through diverse internships and projects
+              Interactive journey through my career development
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="max-w-4xl mx-auto">
             {experiences.map((exp, index) => (
               <motion.div
                 key={exp.company}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                className="timeline-item group"
+                initial={{ opacity: 0, x: -50 }}
+                whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
+                whileHover={{ x: 10 }}
               >
-                <Card className="portfolio-card h-full">
+                <Card className="portfolio-card tilt-card ml-6 cursor-pointer">
                   <CardHeader>
                     <div className="flex items-start justify-between">
                       <div className="flex items-center space-x-3">
@@ -248,13 +250,15 @@ export const About = () => {
                           <Briefcase className="h-5 w-5 text-white" />
                         </div>
                         <div>
-                          <CardTitle className="text-lg">{exp.title}</CardTitle>
+                          <CardTitle className="text-lg group-hover:text-primary transition-colors">
+                            {exp.title}
+                          </CardTitle>
                           <CardDescription className="text-primary font-medium">
                             {exp.company}
                           </CardDescription>
                         </div>
                       </div>
-                      <Badge variant="outline" className="text-xs">
+                      <Badge variant="outline" className="text-xs bg-primary/10 text-primary border-primary/30">
                         {exp.period}
                       </Badge>
                     </div>
@@ -267,7 +271,7 @@ export const About = () => {
                       {exp.technologies.map((tech) => (
                         <Badge 
                           key={tech} 
-                          className="bg-secondary/10 text-secondary border-secondary/20 text-xs"
+                          className="bg-secondary/10 text-secondary border-secondary/20 text-xs hover:bg-secondary/20 transition-colors"
                         >
                           {tech}
                         </Badge>

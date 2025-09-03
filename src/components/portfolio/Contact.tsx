@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/components/ui/use-toast";
+import confetti from 'canvas-confetti';
 import { 
   Mail, 
   Phone, 
@@ -18,7 +19,8 @@ import {
   MessageCircle,
   Globe,
   Download,
-  ExternalLink
+  ExternalLink,
+  Sparkles
 } from "lucide-react";
 
 export const Contact = () => {
@@ -37,8 +39,16 @@ export const Contact = () => {
     
     // Simulate form submission
     setTimeout(() => {
+      // Trigger confetti effect
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 },
+        colors: ['#00bcd4', '#8b5cf6', '#22c55e']
+      });
+      
       toast({
-        title: "Message Sent!",
+        title: "Message Sent! ✨",
         description: "Thank you for reaching out. I'll get back to you within 24 hours.",
       });
       setFormData({ name: "", email: "", subject: "", message: "" });
@@ -157,81 +167,79 @@ export const Contact = () => {
               <CardContent>
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <label className="text-sm font-medium text-foreground">
-                        Full Name *
-                      </label>
+                    <div className="floating-label">
                       <Input
                         name="name"
                         value={formData.name}
                         onChange={handleInputChange}
-                        placeholder="John Doe"
+                        placeholder=" "
                         required
-                        className="bg-muted/50 border-border focus:border-primary focus:ring-primary/20"
+                        className="bg-muted/50 border-border focus:border-primary focus:ring-primary/20 pt-6 pb-2"
                       />
+                      <label>Full Name *</label>
                     </div>
                     
-                    <div className="space-y-2">
-                      <label className="text-sm font-medium text-foreground">
-                        Email Address *
-                      </label>
+                    <div className="floating-label">
                       <Input
                         type="email"
                         name="email"
                         value={formData.email}
                         onChange={handleInputChange}
-                        placeholder="john@example.com"
+                        placeholder=" "
                         required
-                        className="bg-muted/50 border-border focus:border-primary focus:ring-primary/20"
+                        className="bg-muted/50 border-border focus:border-primary focus:ring-primary/20 pt-6 pb-2"
                       />
+                      <label>Email Address *</label>
                     </div>
                   </div>
                   
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium text-foreground">
-                      Subject *
-                    </label>
+                  <div className="floating-label">
                     <Input
                       name="subject"
                       value={formData.subject}
                       onChange={handleInputChange}
-                      placeholder="Project collaboration, Job opportunity, etc."
+                      placeholder=" "
                       required
-                      className="bg-muted/50 border-border focus:border-primary focus:ring-primary/20"
+                      className="bg-muted/50 border-border focus:border-primary focus:ring-primary/20 pt-6 pb-2"
                     />
+                    <label>Subject *</label>
                   </div>
                   
-                  <div className="space-y-2">
-                    <label className="text-sm font-medium text-foreground">
-                      Message *
-                    </label>
+                  <div className="floating-label">
                     <Textarea
                       name="message"
                       value={formData.message}
                       onChange={handleInputChange}
-                      placeholder="Tell me about your project, opportunity, or just say hello..."
+                      placeholder=" "
                       rows={6}
                       required
-                      className="bg-muted/50 border-border focus:border-primary focus:ring-primary/20"
+                      className="bg-muted/50 border-border focus:border-primary focus:ring-primary/20 pt-6 pb-2 resize-none"
                     />
+                    <label>Message *</label>
                   </div>
                   
-                  <Button 
-                    type="submit" 
-                    className="tech-button w-full md:w-auto"
-                    disabled={isSubmitting}
-                  >
-                    {isSubmitting ? (
-                      <motion.div
-                        className="h-4 w-4 border-2 border-white/20 border-t-white rounded-full mr-2"
-                        animate={{ rotate: 360 }}
-                        transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                      />
-                    ) : (
-                      <Send className="h-4 w-4 mr-2" />
-                    )}
-                    {isSubmitting ? "Sending..." : "Send Message"}
-                  </Button>
+                  <div className="text-center">
+                    <p className="text-sm text-muted-foreground mb-4">
+                      I typically respond within 24 hours
+                    </p>
+                    <Button 
+                      type="submit" 
+                      className="tech-button w-full md:w-auto group"
+                      disabled={isSubmitting}
+                    >
+                      {isSubmitting ? (
+                        <motion.div
+                          className="h-4 w-4 border-2 border-white/20 border-t-white rounded-full mr-2"
+                          animate={{ rotate: 360 }}
+                          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                        />
+                      ) : (
+                        <Send className="h-4 w-4 mr-2 group-hover:translate-x-1 transition-transform" />
+                      )}
+                      {isSubmitting ? "Sending..." : "Send Message"}
+                      {!isSubmitting && <Sparkles className="h-4 w-4 ml-2 opacity-0 group-hover:opacity-100 transition-opacity" />}
+                    </Button>
+                  </div>
                 </form>
               </CardContent>
             </Card>
@@ -342,12 +350,19 @@ export const Contact = () => {
                   I'm always up for discussing tech, sharing ideas, or exploring collaborations over coffee.
                 </p>
                 <div className="space-y-2">
-                  <Button className="tech-button w-full text-sm">
-                    <Calendar className="h-4 w-4 mr-2" />
+                  <Button 
+                    className="tech-button w-full text-sm group"
+                    onClick={() => window.open('https://calendly.com/natnaeldejene', '_blank')}
+                  >
+                    <Calendar className="h-4 w-4 mr-2 group-hover:scale-110 transition-transform" />
                     Schedule a Meeting
                   </Button>
-                  <Button variant="outline" className="w-full text-sm border-primary/30 hover:bg-primary/10">
-                    <Download className="h-4 w-4 mr-2" />
+                  <Button 
+                    variant="outline" 
+                    className="w-full text-sm border-primary/30 hover:bg-primary/10 group"
+                    onClick={() => window.open('#', '_blank')}
+                  >
+                    <Download className="h-4 w-4 mr-2 group-hover:translate-y-[-2px] transition-transform" />
                     Download Resume
                   </Button>
                 </div>
