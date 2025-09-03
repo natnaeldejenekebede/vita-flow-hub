@@ -10,7 +10,7 @@ import {
   Rocket,
   ArrowDown 
 } from "lucide-react";
-import portraitImage from "@/assets/natnael-professional.png";
+const portraitImage = "/lovable-uploads/d221cb1b-3612-452a-b9e8-c5315a6c3071.png";
 
 export const Hero = () => {
   const scrollToSection = (id: string) => {
