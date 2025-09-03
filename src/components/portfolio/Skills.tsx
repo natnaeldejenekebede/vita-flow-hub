@@ -39,6 +39,7 @@ export const Skills = () => {
         { name: "Node.js/Express", level: 88, experience: "3+ years" },
         { name: "Python", level: 90, experience: "4+ years" },
         { name: "Django/Flask", level: 85, experience: "2+ years" },
+        { name: "Golang", level: 80, experience: "1+ year" },
         { name: "Java/Spring Boot", level: 75, experience: "1+ year" },
         { name: "RESTful APIs", level: 92, experience: "3+ years" },
         { name: "GraphQL", level: 70, experience: "6+ months" }

@@ -64,8 +64,8 @@ export const Contact = () => {
     {
       icon: Phone,
       label: "Phone",
-      value: "+251 911 123 456",
-      href: "tel:+251911123456",
+      value: "+251901375041",
+      href: "tel:+251901375041",
       color: "secondary"
     },
     {
@@ -88,14 +88,14 @@ export const Contact = () => {
     {
       name: "GitHub",
       icon: Github,
-      href: "https://github.com/natnael-dejene",
+      href: "https://github.com/natnaeldejenekebede",
       color: "primary",
       description: "Open source projects and code repositories"
     },
     {
       name: "LinkedIn",
       icon: Linkedin,
-      href: "https://linkedin.com/in/natnael-dejene",
+      href: "https://www.linkedin.com/in/natnael-dejene-53466326a",
       color: "secondary",
       description: "Professional network and career updates"
     },

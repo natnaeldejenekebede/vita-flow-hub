@@ -34,13 +34,13 @@ export const Projects = () => {
       id: 2,
       title: "Web-based Linux Performance Monitor",
       description: "Real-time system monitoring tool with interactive dashboards for Linux servers. Provides comprehensive insights into CPU, memory, disk, and network performance.",
-      longDescription: "Built a sophisticated monitoring solution that provides real-time system metrics, alerts, and predictive analytics for Linux infrastructure. Used by 3 organizations for production monitoring.",
+      longDescription: "Built a sophisticated monitoring solution that provides real-time system metrics, alerts, and predictive analytics for Linux infrastructure.",
       image: "📊",
       category: "DevOps/Monitoring",
       technologies: ["React.js", "Node.js", "Socket.io", "Chart.js", "Express.js", "Linux"],
       github: "https://github.com/natnael-dejene/linux-monitor",
       demo: "https://linux-monitor.herokuapp.com",
-      impact: "3 organizations using in production",
+      impact: "Real-time performance insights for development teams",
       status: "Production"
     },
     {
@@ -53,7 +53,7 @@ export const Projects = () => {
       technologies: ["Django", "React.js", "PostgreSQL", "WebRTC", "Docker", "AWS"],
       github: "https://github.com/natnael-dejene/university-lms",
       demo: "https://university-lms.demo.com",
-      impact: "Used by 200+ students and 15+ instructors",
+      impact: "Comprehensive academic workflow management",
       status: "Beta"
     },
     {
@@ -246,7 +246,10 @@ export const Projects = () => {
                 I'm always interested in working on innovative projects that can make a real impact. 
                 Let's discuss how we can bring your vision to life.
               </p>
-              <Button className="tech-button">
+              <Button 
+                className="tech-button"
+                onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+              >
                 <Mail className="h-4 w-4 mr-2" />
                 Start a Conversation
               </Button>

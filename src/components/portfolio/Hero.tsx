@@ -10,7 +10,7 @@ import {
   Rocket,
   ArrowDown 
 } from "lucide-react";
-import portraitImage from "@/assets/natnael-portrait.jpg";
+import portraitImage from "@/assets/natnael-professional.png";
 
 export const Hero = () => {
   const scrollToSection = (id: string) => {
@@ -136,7 +136,7 @@ export const Hero = () => {
               transition={{ delay: 0.7, duration: 0.6 }}
             >
               <a 
-                href="https://github.com/natnael-dejene" 
+                href="https://github.com/natnaeldejenekebede" 
                 className="p-3 rounded-full bg-muted/50 hover:bg-primary/20 border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-glow"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -144,7 +144,7 @@ export const Hero = () => {
                 <Github className="h-6 w-6 text-foreground" />
               </a>
               <a 
-                href="https://linkedin.com/in/natnael-dejene" 
+                href="https://www.linkedin.com/in/natnael-dejene-53466326a" 
                 className="p-3 rounded-full bg-muted/50 hover:bg-primary/20 border border-border hover:border-primary/50 transition-all duration-300 hover:shadow-glow"
                 target="_blank"
                 rel="noopener noreferrer"

@@ -29,14 +29,14 @@ export const About = () => {
     {
       title: "Software Engineering Intern",
       company: "Yeab Future",
-      period: "March 2024 - Present",
+      period: "March 2024 - August 2024",
       description: "Developing modern web applications using Next.js and React.js, focusing on user experience and performance optimization.",
       technologies: ["Next.js", "React.js", "TypeScript", "Tailwind CSS"]
     },
     {
       title: "Software Engineer",
       company: "Minnovation",
-      period: "March 2023 - Present",
+      period: "March 2023 - August 2024",
       description: "Full-stack development focusing on scalable web applications and database optimization for various client projects.",
       technologies: ["Python", "Django", "PostgreSQL", "React.js"]
     },
