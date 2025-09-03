@@ -214,7 +214,8 @@
   }
   
   .project-card-3d {
-    @apply perspective-1000 transform-gpu;
+    @apply transform-gpu;
+    perspective: 1000px;
     transform-style: preserve-3d;
   }
   
