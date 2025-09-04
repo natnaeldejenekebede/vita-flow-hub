@@ -12,7 +12,7 @@ import {
   Rocket,
   ArrowDown 
 } from "lucide-react";
-const portraitImage = "/lovable-uploads/d221cb1b-3612-452a-b9e8-c5315a6c3071.png";
+const portraitImage = "/lovable-uploads/ee0a2a3b-9c37-4d47-9f10-b0d11a3a672d.png";
 
 export const Hero = () => {
   const scrollToSection = (id: string) => {
@@ -22,7 +22,12 @@ export const Hero = () => {
   return (
     <>
       <StickyCTA />
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden parallax-hero">
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-background via-background/95 to-primary/5">
+        {/* Enhanced Background */}
+        <div className="absolute inset-0 bg-[linear-gradient(135deg,hsl(var(--background))_0%,hsl(var(--primary)/0.05)_50%,hsl(var(--secondary)/0.05)_100%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,hsl(var(--primary)/0.1)_0%,transparent_50%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,hsl(var(--secondary)/0.1)_0%,transparent_50%)]" />
+        
         {/* Animated Logo/Initials */}
         <motion.div 
           className="absolute top-8 left-8 z-10"
@@ -30,12 +35,8 @@ export const Hero = () => {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          <div className="animated-logo text-4xl">ND</div>
+          <div className="text-4xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">ND</div>
         </motion.div>
-
-        {/* Animated Background */}
-        <div className="absolute inset-0 gradient-mesh opacity-30" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,hsl(var(--primary)/0.1),transparent_70%)]" />
       
       {/* Floating Particles */}
       <div className="absolute inset-0">
@@ -61,7 +62,7 @@ export const Hero = () => {
       </div>
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           {/* Content */}
           <motion.div 
             className="space-y-8"
@@ -82,13 +83,13 @@ export const Hero = () => {
               </motion.div>
 
               <motion.h1 
-                className="text-5xl lg:text-7xl font-bold text-foreground leading-tight"
+                className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-foreground leading-tight"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3, duration: 0.6 }}
               >
                 Hi, I'm{" "}
-                <span className="gradient-hero bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent animate-pulse">
                   Natnael
                 </span>
               </motion.h1>
@@ -186,18 +187,31 @@ export const Hero = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             <div className="relative">
-              {/* Glow Effects */}
-              <div className="absolute -inset-8 bg-gradient-to-r from-primary/20 via-secondary/20 to-accent/20 rounded-full blur-2xl animate-pulse" />
-              <div className="absolute -inset-4 bg-gradient-to-br from-primary/30 to-secondary/30 rounded-full blur-xl" />
+              {/* Enhanced Glow Effects */}
+              <div className="absolute -inset-12 bg-gradient-to-r from-primary/10 via-secondary/10 to-accent/10 rounded-3xl blur-3xl animate-pulse" />
+              <div className="absolute -inset-8 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-2xl blur-2xl" />
+              <div className="absolute -inset-4 bg-gradient-to-tl from-secondary/30 to-primary/30 rounded-xl blur-xl" />
               
-              {/* Portrait Image */}
-              <motion.img
-                src={portraitImage}
-                alt="Natnael Dejene - Software Engineer"
-                className="relative rounded-full w-96 h-96 object-cover border-4 border-primary/30 shadow-2xl"
-                whileHover={{ scale: 1.05 }}
-                transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              />
+              {/* Portrait Image - Professional Version */}
+              <motion.div className="relative">
+                <motion.img
+                  src={portraitImage}
+                  alt="Natnael Dejene - Software Engineer"
+                  className="relative w-80 h-96 sm:w-96 sm:h-[28rem] object-cover rounded-2xl border border-primary/20 shadow-2xl shadow-primary/10"
+                  whileHover={{ scale: 1.02, y: -5 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                />
+                
+                {/* Professional Badge Overlay */}
+                <motion.div 
+                  className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 bg-card/90 backdrop-blur-sm border border-primary/30 rounded-full px-6 py-3 shadow-lg"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.8, duration: 0.6 }}
+                >
+                  <p className="text-sm font-semibold text-primary">Software Engineer</p>
+                </motion.div>
+              </motion.div>
               
               {/* Floating Tech Icons */}
               <motion.div
