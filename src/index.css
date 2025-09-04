@@ -261,8 +261,7 @@
   .radar-chart {
     @apply relative w-full h-80 bg-gradient-to-br from-primary/5 to-secondary/5 rounded-xl border border-primary/20;
   }
-}
-  
+
   .tech-button {
     @apply inline-flex items-center justify-center rounded-[var(--radius)] px-8 py-3 font-semibold text-base;
     @apply transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring;
