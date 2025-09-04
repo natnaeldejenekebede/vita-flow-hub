@@ -37,8 +37,17 @@ export const Contact = () => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate form submission
-    setTimeout(() => {
+    try {
+      const { supabase } = await import("@/integrations/supabase/client");
+      
+      const { data, error } = await supabase.functions.invoke('send-contact-email', {
+        body: formData
+      });
+
+      if (error) {
+        throw error;
+      }
+
       // Trigger confetti effect
       confetti({
         particleCount: 100,
@@ -51,9 +60,18 @@ export const Contact = () => {
         title: "Message Sent! ✨",
         description: "Thank you for reaching out. I'll get back to you within 24 hours.",
       });
+      
       setFormData({ name: "", email: "", subject: "", message: "" });
+    } catch (error: any) {
+      console.error('Error sending message:', error);
+      toast({
+        title: "Error sending message",
+        description: error.message || "Something went wrong. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
       setIsSubmitting(false);
-    }, 2000);
+    }
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -360,7 +378,15 @@ export const Contact = () => {
                   <Button 
                     variant="outline" 
                     className="w-full text-sm border-primary/30 hover:bg-primary/10 group"
-                    onClick={() => window.open('#', '_blank')}
+                    onClick={() => {
+                      // Note: Replace this URL with your actual CV download link
+                      // The current URL is a Google Drive home page, not a direct download
+                      toast({
+                        title: "CV Download",
+                        description: "Please provide a direct Google Drive download link to enable CV downloads.",
+                        variant: "destructive",
+                      });
+                    }}
                   >
                     <Download className="h-4 w-4 mr-2 group-hover:translate-y-[-2px] transition-transform" />
                     Download Resume
