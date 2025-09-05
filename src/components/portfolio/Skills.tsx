@@ -1,7 +1,11 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Progress } from "@/components/ui/progress";
+import { Skeleton } from "@/components/ui/skeleton";
 import { RadarChart } from "@/components/ui/radar-chart";
+import { useSkills } from "@/hooks/usePortfolioData";
 import { 
   Code, 
   Database, 
@@ -13,63 +17,88 @@ import {
   Zap,
   Globe,
   Settings,
-  Brain
+  Brain,
+  Server,
+  Palette,
+  GitBranch,
+  Package,
+  Terminal,
+  Layers,
+  FileText,
+  Code2
 } from "lucide-react";
 
 export const Skills = () => {
+  const [selectedCategory, setSelectedCategory] = useState("all");
+  const { skills, loading, error } = useSkills();
+
+  const getIcon = (iconName?: string) => {
+    const iconMap: { [key: string]: any } = {
+      'Code': Code,
+      'Code2': Code2,
+      'FileText': FileText,
+      'Server': Server,
+      'Database': Database,
+      'Palette': Palette,
+      'Zap': Zap,
+      'GitBranch': GitBranch,
+      'Package': Package,
+      'Cloud': Cloud,
+      'Globe': Globe,
+      'Smartphone': Smartphone,
+      'Terminal': Terminal,
+      'Layers': Layers
+    };
+    return iconMap[iconName || 'Code'] || Code;
+  };
+
   const skillCategories = [
-    {
-      title: "Frontend Development",
-      icon: Code,
-      color: "primary",
-      skills: [
-        { name: "React.js/Next.js", level: 95, experience: "3+ years" },
-        { name: "TypeScript", level: 90, experience: "2+ years" },
-        { name: "JavaScript (ES6+)", level: 95, experience: "4+ years" },
-        { name: "Tailwind CSS", level: 88, experience: "2+ years" },
-        { name: "HTML5/CSS3", level: 98, experience: "4+ years" },
-        { name: "Framer Motion", level: 80, experience: "1+ year" }
-      ]
-    },
-    {
-      title: "Backend Development",
-      icon: Database,
-      color: "secondary",
-      skills: [
-        { name: "Node.js/Express", level: 88, experience: "3+ years" },
-        { name: "Python", level: 90, experience: "4+ years" },
-        { name: "Django/Flask", level: 85, experience: "2+ years" },
-        { name: "Golang", level: 80, experience: "1+ year" },
-        { name: "Java/Spring Boot", level: 75, experience: "1+ year" },
-        { name: "RESTful APIs", level: 92, experience: "3+ years" },
-        { name: "GraphQL", level: 70, experience: "6+ months" }
-      ]
-    },
-    {
-      title: "Mobile Development",
-      icon: Smartphone,
-      color: "accent",
-      skills: [
-        { name: "Flutter/Dart", level: 85, experience: "2+ years" },
-        { name: "React Native", level: 70, experience: "1+ year" },
-        { name: "Firebase", level: 80, experience: "2+ years" },
-        { name: "Mobile UI/UX", level: 85, experience: "2+ years" }
-      ]
-    },
-    {
-      title: "Database & DevOps",
-      icon: Cloud,
-      color: "success",
-      skills: [
-        { name: "PostgreSQL", level: 85, experience: "3+ years" },
-        { name: "MongoDB", level: 80, experience: "2+ years" },
-        { name: "Redis", level: 75, experience: "1+ year" },
-        { name: "Docker", level: 78, experience: "2+ years" },
-        { name: "AWS/Vercel", level: 80, experience: "2+ years" },
-        { name: "Git/GitHub", level: 95, experience: "4+ years" }
-      ]
-    }
+    { id: "all", name: "All Skills" },
+    { id: "frontend", name: "Frontend" },
+    { id: "backend", name: "Backend" },
+    { id: "database", name: "Database" },
+    { id: "tools", name: "Tools" },
+    { id: "cloud", name: "Cloud" },
   ];
+
+  const getFilteredSkills = () => {
+    if (selectedCategory === "all") {
+      return skills;
+    }
+    return skills.filter(skill => skill.category === selectedCategory);
+  };
+
+  if (loading) {
+    return (
+      <section id="skills" className="py-20 bg-muted/30 relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+          <div className="text-center space-y-4 mb-16">
+            <Skeleton className="h-12 w-64 mx-auto" />
+            <Skeleton className="h-6 w-96 mx-auto" />
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {Array(6).fill(0).map((_, i) => (
+              <Skeleton key={i} className="h-40 w-full" />
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (error) {
+    return (
+      <section id="skills" className="py-20 bg-muted/30 relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+          <Card className="max-w-md mx-auto">
+            <CardContent className="pt-6 text-center">
+              <p className="text-red-500">Error loading skills: {error}</p>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+    );
+  }
 
   const softSkills = [
     { name: "Problem Solving", icon: Brain, description: "Analytical thinking and creative solutions" },
@@ -108,76 +137,84 @@ export const Skills = () => {
           </p>
         </motion.div>
 
-        {/* Technical Skills */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
-          {skillCategories.map((category, categoryIndex) => {
-            const IconComponent = category.icon;
+        {/* Filter Controls */}
+        <motion.div
+          className="flex flex-wrap justify-center gap-3 mb-12"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
+          {skillCategories.map((category) => (
+            <button
+              key={category.id}
+              onClick={() => setSelectedCategory(category.id)}
+              className={`px-4 py-2 rounded-lg transition-all duration-300 ${
+                selectedCategory === category.id 
+                  ? 'bg-primary text-primary-foreground shadow-glow' 
+                  : 'bg-muted hover:bg-muted/80 text-muted-foreground hover:text-foreground'
+              }`}
+            >
+              {category.name}
+              <Badge variant="secondary" className="ml-2 text-xs">
+                {selectedCategory === category.id 
+                  ? getFilteredSkills().length 
+                  : skills.filter(s => category.id === "all" || s.category === category.id).length
+                }
+              </Badge>
+            </button>
+          ))}
+        </motion.div>
+
+        {/* Dynamic Skills Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+          {getFilteredSkills().map((skill, index) => {
+            const IconComponent = getIcon(skill.icon_name);
             
             return (
               <motion.div
-                key={category.title}
-                initial={{ opacity: 0, y: 50 }}
+                key={skill.id}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: categoryIndex * 0.1 }}
+                transition={{ duration: 0.4, delay: index * 0.1 }}
               >
                 <Card className="portfolio-card h-full">
-                  <CardHeader>
-                    <div className="flex items-center space-x-3">
-                      <div className="p-3 rounded-lg shadow-glow bg-primary/10 text-primary border border-primary/30">
-                        <IconComponent className="h-6 w-6" />
-                      </div>
-                      <div>
-                        <CardTitle className="text-xl">{category.title}</CardTitle>
-                        <CardDescription>
-                          {category.skills.length} technologies mastered
-                        </CardDescription>
-                      </div>
-                    </div>
-                  </CardHeader>
-                  
-                  <CardContent className="space-y-4">
-                    {category.skills.map((skill, skillIndex) => (
-                      <motion.div
-                        key={skill.name}
-                        className="space-y-2"
-                        initial={{ opacity: 0, x: -20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ 
-                          duration: 0.4, 
-                          delay: (categoryIndex * 0.1) + (skillIndex * 0.05) 
+                  <CardContent className="p-6">
+                    <div className="flex items-center space-x-3 mb-4">
+                      <div 
+                        className="p-3 rounded-xl shadow-lg border"
+                        style={{ 
+                          background: `linear-gradient(135deg, ${skill.color}20, ${skill.color}10)`,
+                          borderColor: `${skill.color}40`
                         }}
                       >
-                        <div className="flex justify-between items-center">
-                          <span className="font-medium text-foreground text-sm">
-                            {skill.name}
-                          </span>
-                          <div className="flex items-center space-x-2">
-                            <Badge variant="outline" className="text-xs">
-                              {skill.experience}
-                            </Badge>
-                            <span className="text-xs text-muted-foreground">
-                              {skill.level}%
-                            </span>
-                          </div>
-                        </div>
-                        
-                        <div className="relative h-2 bg-muted rounded-full overflow-hidden">
-                          <motion.div
-                            className="absolute top-0 left-0 h-full rounded-full gradient-primary"
-                            initial={{ width: 0 }}
-                            whileInView={{ width: `${skill.level}%` }}
-                            viewport={{ once: true }}
-                            transition={{ 
-                              duration: 1, 
-                              delay: (categoryIndex * 0.2) + (skillIndex * 0.1),
-                              ease: "easeOut" 
-                            }}
+                        <IconComponent 
+                          className="h-6 w-6"
+                          style={{ color: skill.color }}
+                        />
+                      </div>
+                      <div className="flex-1">
+                        <h4 className="text-lg font-semibold text-foreground">{skill.name}</h4>
+                        <div className="flex items-center space-x-2">
+                          <Progress 
+                            value={skill.level * 20} 
+                            className="flex-1 h-2"
                           />
+                          <span className="text-sm font-medium text-muted-foreground">
+                            {skill.level}/5
+                          </span>
                         </div>
-                      </motion.div>
-                    ))}
+                      </div>
+                    </div>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      {skill.description || `${skill.years_experience} years of experience with ${skill.name}`}
+                    </p>
+                    {skill.featured && (
+                      <Badge className="mt-3 bg-primary/20 text-primary border-primary/30">
+                        Featured
+                      </Badge>
+                    )}
                   </CardContent>
                 </Card>
               </motion.div>

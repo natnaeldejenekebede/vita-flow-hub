@@ -378,14 +378,38 @@ export const Contact = () => {
                   <Button 
                     variant="outline" 
                     className="w-full text-sm border-primary/30 hover:bg-primary/10 group"
-                    onClick={() => {
-                      // Note: Replace this URL with your actual CV download link
-                      // The current URL is a Google Drive home page, not a direct download
-                      toast({
-                        title: "CV Download",
-                        description: "Please provide a direct Google Drive download link to enable CV downloads.",
-                        variant: "destructive",
-                      });
+                    onClick={async () => {
+                      try {
+                        // Track CV download
+                        const { trackAnalytics } = await import("@/hooks/usePortfolioData");
+                        await trackAnalytics('cv_download');
+                        
+                        // Create a download from Supabase Storage
+                        const { supabase } = await import("@/integrations/supabase/client");
+                        const { data } = await supabase.storage
+                          .from('portfolio-files')
+                          .getPublicUrl('Natnael-Dejene-CV.pdf');
+                        
+                        if (data?.publicUrl) {
+                          window.open(data.publicUrl, '_blank');
+                          toast({
+                            title: "CV Downloaded",
+                            description: "Resume is downloading now!",
+                          });
+                        } else {
+                          toast({
+                            title: "CV Not Available", 
+                            description: "Please upload your CV to Supabase Storage first.",
+                            variant: "destructive",
+                          });
+                        }
+                      } catch (error) {
+                        toast({
+                          title: "Download Failed",
+                          description: "Unable to download CV at this time.",
+                          variant: "destructive",
+                        });
+                      }
                     }}
                   >
                     <Download className="h-4 w-4 mr-2 group-hover:translate-y-[-2px] transition-transform" />

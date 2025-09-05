@@ -14,6 +14,84 @@ export type Database = {
   }
   public: {
     Tables: {
+      analytics: {
+        Row: {
+          created_at: string
+          event_data: Json | null
+          event_type: string
+          id: string
+          ip_address: unknown | null
+          referrer: string | null
+          user_agent: string | null
+        }
+        Insert: {
+          created_at?: string
+          event_data?: Json | null
+          event_type: string
+          id?: string
+          ip_address?: unknown | null
+          referrer?: string | null
+          user_agent?: string | null
+        }
+        Update: {
+          created_at?: string
+          event_data?: Json | null
+          event_type?: string
+          id?: string
+          ip_address?: unknown | null
+          referrer?: string | null
+          user_agent?: string | null
+        }
+        Relationships: []
+      }
+      certifications: {
+        Row: {
+          badge_url: string | null
+          created_at: string
+          credential_id: string | null
+          credential_url: string | null
+          description: string | null
+          expiration_date: string | null
+          id: string
+          issue_date: string
+          issuer: string
+          name: string
+          skills: string[] | null
+          sort_order: number | null
+          updated_at: string
+        }
+        Insert: {
+          badge_url?: string | null
+          created_at?: string
+          credential_id?: string | null
+          credential_url?: string | null
+          description?: string | null
+          expiration_date?: string | null
+          id?: string
+          issue_date: string
+          issuer: string
+          name: string
+          skills?: string[] | null
+          sort_order?: number | null
+          updated_at?: string
+        }
+        Update: {
+          badge_url?: string | null
+          created_at?: string
+          credential_id?: string | null
+          credential_url?: string | null
+          description?: string | null
+          expiration_date?: string | null
+          id?: string
+          issue_date?: string
+          issuer?: string
+          name?: string
+          skills?: string[] | null
+          sort_order?: number | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       contact_messages: {
         Row: {
           created_at: string
@@ -43,6 +121,222 @@ export type Database = {
           name?: string
           status?: string
           subject?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      education: {
+        Row: {
+          achievements: string[] | null
+          created_at: string
+          current: boolean
+          degree: string
+          description: string | null
+          end_date: string | null
+          field_of_study: string
+          grade: string | null
+          id: string
+          institution: string
+          location: string | null
+          logo_url: string | null
+          sort_order: number | null
+          start_date: string
+          updated_at: string
+        }
+        Insert: {
+          achievements?: string[] | null
+          created_at?: string
+          current?: boolean
+          degree: string
+          description?: string | null
+          end_date?: string | null
+          field_of_study: string
+          grade?: string | null
+          id?: string
+          institution: string
+          location?: string | null
+          logo_url?: string | null
+          sort_order?: number | null
+          start_date: string
+          updated_at?: string
+        }
+        Update: {
+          achievements?: string[] | null
+          created_at?: string
+          current?: boolean
+          degree?: string
+          description?: string | null
+          end_date?: string | null
+          field_of_study?: string
+          grade?: string | null
+          id?: string
+          institution?: string
+          location?: string | null
+          logo_url?: string | null
+          sort_order?: number | null
+          start_date?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      projects: {
+        Row: {
+          category: string
+          created_at: string
+          demo_url: string | null
+          description: string
+          end_date: string | null
+          featured: boolean
+          github_url: string | null
+          id: string
+          image_url: string | null
+          impact: string | null
+          long_description: string | null
+          sort_order: number | null
+          start_date: string | null
+          status: string
+          technologies: string[]
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          category?: string
+          created_at?: string
+          demo_url?: string | null
+          description: string
+          end_date?: string | null
+          featured?: boolean
+          github_url?: string | null
+          id?: string
+          image_url?: string | null
+          impact?: string | null
+          long_description?: string | null
+          sort_order?: number | null
+          start_date?: string | null
+          status?: string
+          technologies?: string[]
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          demo_url?: string | null
+          description?: string
+          end_date?: string | null
+          featured?: boolean
+          github_url?: string | null
+          id?: string
+          image_url?: string | null
+          impact?: string | null
+          long_description?: string | null
+          sort_order?: number | null
+          start_date?: string | null
+          status?: string
+          technologies?: string[]
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      skills: {
+        Row: {
+          category: string
+          color: string | null
+          created_at: string
+          description: string | null
+          featured: boolean
+          icon_name: string | null
+          id: string
+          level: number
+          name: string
+          sort_order: number | null
+          updated_at: string
+          years_experience: number | null
+        }
+        Insert: {
+          category: string
+          color?: string | null
+          created_at?: string
+          description?: string | null
+          featured?: boolean
+          icon_name?: string | null
+          id?: string
+          level?: number
+          name: string
+          sort_order?: number | null
+          updated_at?: string
+          years_experience?: number | null
+        }
+        Update: {
+          category?: string
+          color?: string | null
+          created_at?: string
+          description?: string | null
+          featured?: boolean
+          icon_name?: string | null
+          id?: string
+          level?: number
+          name?: string
+          sort_order?: number | null
+          updated_at?: string
+          years_experience?: number | null
+        }
+        Relationships: []
+      }
+      timeline: {
+        Row: {
+          achievements: string[] | null
+          company: string
+          company_logo_url: string | null
+          created_at: string
+          current: boolean
+          description: string
+          end_date: string | null
+          id: string
+          location: string | null
+          responsibilities: string[] | null
+          sort_order: number | null
+          start_date: string
+          technologies: string[] | null
+          title: string
+          type: string
+          updated_at: string
+        }
+        Insert: {
+          achievements?: string[] | null
+          company: string
+          company_logo_url?: string | null
+          created_at?: string
+          current?: boolean
+          description: string
+          end_date?: string | null
+          id?: string
+          location?: string | null
+          responsibilities?: string[] | null
+          sort_order?: number | null
+          start_date: string
+          technologies?: string[] | null
+          title: string
+          type?: string
+          updated_at?: string
+        }
+        Update: {
+          achievements?: string[] | null
+          company?: string
+          company_logo_url?: string | null
+          created_at?: string
+          current?: boolean
+          description?: string
+          end_date?: string | null
+          id?: string
+          location?: string | null
+          responsibilities?: string[] | null
+          sort_order?: number | null
+          start_date?: string
+          technologies?: string[] | null
+          title?: string
+          type?: string
           updated_at?: string
         }
         Relationships: []
