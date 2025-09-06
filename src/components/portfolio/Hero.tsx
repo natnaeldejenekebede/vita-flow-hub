@@ -100,8 +100,8 @@ export const Hero = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4, duration: 0.6 }}
               >
-                <p className="text-2xl lg:text-3xl font-semibold text-primary">
-                  Software Engineer
+                <p className="text-lg lg:text-xl font-semibold text-primary">
+                  Software Engineer | AI & Full-Stack Developer | Building Solutions for Ethiopia and the World
                 </p>
               </motion.div>
 
