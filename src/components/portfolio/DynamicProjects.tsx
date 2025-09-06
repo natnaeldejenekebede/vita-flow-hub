@@ -26,6 +26,7 @@ export const DynamicProjects = () => {
     { id: "web", name: "Web Apps", count: projects.filter(p => p.category === 'web').length },
     { id: "mobile", name: "Mobile Apps", count: projects.filter(p => p.category === 'mobile').length },
     { id: "desktop", name: "Desktop", count: projects.filter(p => p.category === 'desktop').length },
+    { id: "ai", name: "AI/ML", count: projects.filter(p => p.category === 'ai').length },
     { id: "api", name: "APIs", count: projects.filter(p => p.category === 'api').length },
   ];
 

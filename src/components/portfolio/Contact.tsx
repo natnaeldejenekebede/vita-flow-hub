@@ -362,10 +362,10 @@ export const Contact = () => {
               <CardContent className="p-6 text-center">
                 <Coffee className="h-12 w-12 mx-auto mb-4 text-primary" />
                 <h3 className="text-lg font-semibold text-foreground mb-2">
-                  Grab a Coffee?
+                  Let's Work Together
                 </h3>
                 <p className="text-sm text-muted-foreground mb-4">
-                  I'm always up for discussing tech, sharing ideas, or exploring collaborations over coffee.
+                  Available for full-time, remote, and freelance opportunities. Let's discuss your next project.
                 </p>
                 <div className="space-y-2">
                   <Button 

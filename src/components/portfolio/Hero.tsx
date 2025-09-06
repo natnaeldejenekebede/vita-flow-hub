@@ -103,13 +103,6 @@ export const Hero = () => {
                 <p className="text-2xl lg:text-3xl font-semibold text-primary">
                   Software Engineer
                 </p>
-                <div className="text-lg text-muted-foreground">
-                  <TypingEffect 
-                    text="Innovating Tech Solutions in Ethiopia" 
-                    speed={80}
-                    className="text-xl font-medium text-foreground"
-                  />
-                </div>
               </motion.div>
 
               <motion.p 
@@ -118,9 +111,9 @@ export const Hero = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5, duration: 0.6 }}
               >
-                Final-year Software Engineering student at Addis Ababa University, 
+                Software Engineering graduate from Addis Ababa University, 
                 passionate about AI-driven learning systems, full-stack development, 
-                and building innovative solutions for Ethiopia's tech ecosystem.
+                and creating innovative solutions for Ethiopia's tech ecosystem.
               </motion.p>
             </div>
 
@@ -141,6 +134,36 @@ export const Hero = () => {
               <Button 
                 variant="outline" 
                 className="border-primary/30 hover:border-primary hover:bg-primary/10 text-lg px-8 py-3"
+                onClick={async () => {
+                  try {
+                    // Track CV download
+                    const { trackAnalytics } = await import("@/hooks/usePortfolioData");
+                    await trackAnalytics('cv_download', { source: 'hero_section' });
+                    
+                    // Create a download from Supabase Storage
+                    const { supabase } = await import("@/integrations/supabase/client");
+                    const { data } = await supabase.storage
+                      .from('portfolio-files')
+                      .getPublicUrl('Natnael-Dejene-CV.pdf');
+                    
+                    if (data?.publicUrl) {
+                      // Create download link
+                      const link = document.createElement('a');
+                      link.href = data.publicUrl;
+                      link.download = 'Natnael-Dejene-CV.pdf';
+                      document.body.appendChild(link);
+                      link.click();
+                      document.body.removeChild(link);
+                    } else {
+                      // Fallback to a placeholder CV
+                      window.open('/Natnael-Dejene-CV.pdf', '_blank');
+                    }
+                  } catch (error) {
+                    console.error('CV download failed:', error);
+                    // Fallback to direct link
+                    window.open('/Natnael-Dejene-CV.pdf', '_blank');
+                  }
+                }}
               >
                 <Download className="mr-2 h-5 w-5" />
                 Download CV
