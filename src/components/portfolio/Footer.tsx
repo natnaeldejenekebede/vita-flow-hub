@@ -176,15 +176,8 @@ export const Footer = () => {
           transition={{ duration: 0.5, delay: 0.2 }}
         >
           <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
-            <div className="flex items-center space-x-4 text-sm text-muted-foreground">
+            <div className="text-sm text-muted-foreground">
               <p>© {currentYear} Natnael Dejene. All rights reserved.</p>
-              <div className="flex items-center space-x-1">
-                <span>Made with</span>
-                <Heart className="h-4 w-4 text-red-500 animate-pulse" />
-                <span>and</span>
-                <Code className="h-4 w-4 text-primary" />
-                <span>in Ethiopia</span>
-              </div>
             </div>
             
             <div className="flex items-center space-x-4">

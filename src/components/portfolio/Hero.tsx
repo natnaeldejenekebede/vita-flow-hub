@@ -134,35 +134,8 @@ export const Hero = () => {
               <Button 
                 variant="outline" 
                 className="border-primary/30 hover:border-primary hover:bg-primary/10 text-lg px-8 py-3"
-                onClick={async () => {
-                  try {
-                    // Track CV download
-                    const { trackAnalytics } = await import("@/hooks/usePortfolioData");
-                    await trackAnalytics('cv_download', { source: 'hero_section' });
-                    
-                    // Create a download from Supabase Storage
-                    const { supabase } = await import("@/integrations/supabase/client");
-                    const { data } = await supabase.storage
-                      .from('portfolio-files')
-                      .getPublicUrl('Natnael-Dejene-CV.pdf');
-                    
-                    if (data?.publicUrl) {
-                      // Create download link
-                      const link = document.createElement('a');
-                      link.href = data.publicUrl;
-                      link.download = 'Natnael-Dejene-CV.pdf';
-                      document.body.appendChild(link);
-                      link.click();
-                      document.body.removeChild(link);
-                    } else {
-                      // Fallback to a placeholder CV
-                      window.open('/Natnael-Dejene-CV.pdf', '_blank');
-                    }
-                  } catch (error) {
-                    console.error('CV download failed:', error);
-                    // Fallback to direct link
-                    window.open('/Natnael-Dejene-CV.pdf', '_blank');
-                  }
+                onClick={() => {
+                  window.open('https://drive.google.com/file/d/1UnKPzbCDL5mLlCZJFj4VTuKaEETFY4E0/view?usp=sharing', '_blank');
                 }}
               >
                 <Download className="mr-2 h-5 w-5" />
